@@ -15,8 +15,9 @@ class SiswaController extends Controller
      */
     public function index()
     {
-        $siswa = Siswa::all();
-        return $siswa;
+        $siswas = Siswa::orderBy('created_at', 'desc')->get();
+
+        return $siswas->toJson();
     }
 
     /**
@@ -37,7 +38,17 @@ class SiswaController extends Controller
      */
     public function store(StoreSiswaRequest $request)
     {
-        //
+        $validatedData = $request->validate([
+            'nama' => 'required',
+            'nisn' => 'required',
+          ]);
+  
+          $siswa = Siswa::create([
+            'nama' => $validatedData['nama'],
+            'nisn' => $validatedData['nisn'],
+          ]);
+  
+          return response()->json('Siswa terdaftar!');
     }
 
     /**
@@ -46,9 +57,11 @@ class SiswaController extends Controller
      * @param  \App\Models\Siswa  $siswa
      * @return \Illuminate\Http\Response
      */
-    public function show(Siswa $siswa)
+    public function show($id)
     {
-        //
+        $siswa = Siswa::find($id);
+  
+          return $siswa->toJson();
     }
 
     /**
