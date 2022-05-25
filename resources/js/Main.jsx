@@ -6,7 +6,8 @@ import {
   Route,
 } from "react-router-dom";
 import Home from './pages/Home';
-import About from './pages/About';
+import Siswa from './pages/Siswa';
+import SiswaCreate from './pages/SiswaCreate';
 import Dashboard from './layouts/Dashboard';
 
 
@@ -18,7 +19,8 @@ function Main() {
       <Route path="/" element={<Dashboard />}>
       <Route index element={<Home />} />
         <Route path="home" element={<Home />}/>
-        <Route path="about" element={<About />}/>
+        <Route path="siswa" element={<Siswa />}/>
+        <Route path="siswa/create" element={<SiswaCreate />}/>
       </Route>
     </Routes>
         </BrowserRouter>

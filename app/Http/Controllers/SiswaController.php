@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreSiswaRequest;
 use App\Http\Requests\UpdateSiswaRequest;
 use App\Models\Siswa;
+use Illuminate\Http\Request;
 
 class SiswaController extends Controller
 {
@@ -15,9 +16,7 @@ class SiswaController extends Controller
      */
     public function index()
     {
-        $siswas = Siswa::orderBy('created_at', 'desc')->get();
-
-        return $siswas->toJson();
+        return Siswa::all();
     }
 
     /**
@@ -36,19 +35,18 @@ class SiswaController extends Controller
      * @param  \App\Http\Requests\StoreSiswaRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreSiswaRequest $request)
+    public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'nama' => 'required',
-            'nisn' => 'required',
-          ]);
-  
-          $siswa = Siswa::create([
-            'nama' => $validatedData['nama'],
-            'nisn' => $validatedData['nisn'],
-          ]);
-  
-          return response()->json('Siswa terdaftar!');
+        $newSiswa = Siswa::create([
+            'nama' => $request->nama,
+            'asal' => $request->asal,
+            'nisn' => $request->nisn,
+            'nisn' => $request->nisn,
+            'tahun_masuk' => $request->tahun_masuk,
+        ]);
+        if($newSiswa){
+            return response()->json(["status" => 200]);
+        }
     }
 
     /**

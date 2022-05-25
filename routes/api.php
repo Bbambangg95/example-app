@@ -14,10 +14,8 @@ use App\Http\Controllers\SiswaController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-    Route::get('siswas', 'ProjectController@index');
-    Route::post('siswas', 'ProjectController@store');
-    Route::get('siswas/{id}', 'ProjectController@show');
-    
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::resource('siswa',SiswaController::class);

@@ -18,4 +18,5 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 Route::view('/{any}', 'welcome')->where('any', '.*');
+Route::post('/siswa/create', SiswaController::class. '@store');
 
