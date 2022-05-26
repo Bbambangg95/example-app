@@ -2,6 +2,7 @@
 
 use App\Models\Siswa;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SiswaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,5 +19,4 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 Route::view('/{any}', 'welcome')->where('any', '.*');
-Route::post('/siswa/create', SiswaController::class. '@store');
 

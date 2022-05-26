@@ -17,7 +17,7 @@ class SiswaController extends Controller
     public function index()
     {
         return Siswa::all();
-    }
+    } 
 
     /**
      * Show the form for creating a new resource.
@@ -37,16 +37,7 @@ class SiswaController extends Controller
      */
     public function store(Request $request)
     {
-        $newSiswa = Siswa::create([
-            'nama' => $request->nama,
-            'asal' => $request->asal,
-            'nisn' => $request->nisn,
-            'nisn' => $request->nisn,
-            'tahun_masuk' => $request->tahun_masuk,
-        ]);
-        if($newSiswa){
-            return response()->json(["status" => 200]);
-        }
+        dd($request->all());
     }
 
     /**
