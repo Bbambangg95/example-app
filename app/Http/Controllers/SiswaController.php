@@ -16,7 +16,8 @@ class SiswaController extends Controller
      */
     public function index()
     {
-        return Siswa::all();
+        $siswas = Siswa::all();
+        return response() -> json(['status' => 200, 'siswas' => $siswas]);
     } 
 
     /**
@@ -68,10 +69,12 @@ class SiswaController extends Controller
      * @param  \App\Models\Siswa  $siswa
      * @return \Illuminate\Http\Response
      */
-    public function edit(Siswa $siswa)
+    public function edit($id)
     {
-        //
+        $siswas = Siswa::find($id);
+        return response()->json(['status' => 200, 'siswas' => $siswas]);
     }
+    
 
     /**
      * Update the specified resource in storage.
@@ -80,9 +83,17 @@ class SiswaController extends Controller
      * @param  \App\Models\Siswa  $siswa
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateSiswaRequest $request, Siswa $siswa)
+    public function update(Request $request, $id)
     {
-        //
+        $siswas = Siswa::find($id);
+        $siswas->nama = $request->nama;
+        $siswas->asal = $request->asal;
+        $siswas->nisn = $request->nisn;
+        $siswas->nis = $request->nis;
+        $siswas->tahun_masuk = $request->tahun_masuk;
+        if($siswas -> save()){
+            return response()->json(["status" => 200]);
+        }
     }
 
     /**
@@ -91,8 +102,11 @@ class SiswaController extends Controller
      * @param  \App\Models\Siswa  $siswa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Siswa $siswa)
+    public function destroy($id)
     {
-        //
+        $siswas = Siswa::find($id); 
+        if($siswas -> delete()){
+            return response()->json(["status" => 200]);
+        }
     }
 }

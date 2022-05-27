@@ -1,19 +1,37 @@
 import React, { Component, useEffect, useState } from "react";
 import {Link} from "react-router-dom";
 import axios from 'axios';
+import { PlusLg } from "react-bootstrap-icons";
+import { render } from "react-dom";
 
-export default function Siswa() {
-    const [siswas, setSiswas] = useState([]);
+class Siswa extends Component {
+  state = {
+    siswas: [],
+    loading: true,
+  }
 
-    useEffect(()=> {
-      fetchAllSiswas();
-    },[]);
+  fetchAllSiswas = async () => {
+    const res = await axios.get("/addSiswa");
+    if (res.status === 200) {
+      this.setState({
+        siswas: res.data.siswas,
+        loading: false,
+      });
+    }
+  }
 
-    const fetchAllSiswas = async () => {
-      await axios.get(`/addSiswa`).then(({data})=>{
-          setSiswas(data)
-        })
-      }
+  componentDidMount(){
+    this.fetchAllSiswas();
+}
+
+  deleteSiswa = async (id) => {
+    var con = window.confirm("Apakah anda yakin ingin menghapus data ini?");
+    if (con) {
+      await axios.delete(`/addSiswa/${id}`);
+      this.fetchAllSiswas();
+    }
+  }
+  render() {
     return (
       <div class="page-wrapper">
                 <div class="container-xl">
@@ -25,17 +43,16 @@ export default function Siswa() {
                             <div class="text-muted mt-1"></div>
                         </div>
                         {/* <!-- Page title actions --> */}
+                        <div class="col-auto ms-auto d-print-none">
+                            <div class="d-flex">
+                                <Link to={"/addSiswas"} class="btn btn-primary d-inline-block w-9 me-1"><PlusLg className="icon" />Tambah Siswa</Link>
+                            </div>
+                          </div>
                           <div class="col-2">
                                   <select id='searchByGender' name="valueToSearch" class="form-select d-inline-block w-9 me-3 text-muted">
                                     <option value="">Tahun Masuk</option>
                                     <option value="2025" >2025</option>
                                     <option value="2024" >2024</option>
-                                    <option value="2023" >2023</option>
-                                    <option value="2021" >2021</option>
-                                    <option value="2020" >2020</option>
-                                    <option value="2019" >2019</option>
-                                    <option value="2018" >2018</option>
-                                    <option value="2017" >2017</option>
                                   </select>
                           </div>
                           <div class="col-auto ms-auto d-print-none">
@@ -43,6 +60,7 @@ export default function Siswa() {
                                 <input type="submit" name="search" value="Filter" class="form-control d-inline-block w-9 me-3" placeholder="Search user…" />
                             </div>
                           </div>
+                          
                     </div>
                 </div>
                 <div class="page-body">
@@ -61,27 +79,21 @@ export default function Siswa() {
                               </tr>
                             </thead>
                             <tbody>
-                              {siswas.map((siswa, index)=>(
-                              <tr key={siswa.id}>
-                                <td>{siswa.nama}</td>
-                                <td class="text-muted">{siswa.nisn}</td>
-                                <td class="text-muted">{siswa.nis}</td>
-                                <td class="text-muted">{siswa.tahun_masuk}</td>
+                            {this.state.siswas.map(siswas =>  (
+                              <tr key={siswas.id}>
+                                <td>{siswas.nama}</td>
+                                <td class="text-muted">{siswas.nisn}</td>
+                                <td class="text-muted">{siswas.nis}</td>
+                                <td class="text-muted">{siswas.tahun_masuk}</td>
                                 <td>
                                 <div class="d-flex">
-                                  
-                                  <Link to={"/"} href="" class="btn me-2">
-                                  Nilai
-                                    </Link>
-
-                                  <Link to={"/"} href="" class="btn me-2">
-                                  Print</Link>
-                                  <Link to={"/"} href="" class="btn">
-                                  Hapus</Link>
+                                  <Link to={`/editSiswa/${siswas.id}`}  class="btn me-2">Edit</Link>
+                                  <Link to={"/"}  class="btn me-2">Print</Link>
+                                  <a class="btn" onClick={() => this.deleteSiswa(siswas.id)}>Hapus</a>
                                 </div>
                                 </td>
                               </tr>
-                              ))}
+                            ))}
                             </tbody>
                           </table>
                         </div>
@@ -96,5 +108,8 @@ export default function Siswa() {
       </div>
     );
   }
+}
+
+export default Siswa;
 
  
