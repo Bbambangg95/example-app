@@ -1,38 +1,50 @@
-import React, { Component} from "react";
-import axios from 'axios';
-import { Root } from "postcss";
-import { Route } from "react-router-dom";
+import React from 'react';
+import axios from "axios";
 
-class SiswaCreate extends Component {
-    state = {
+class EditSiswas extends React.Component {
+    state ={
         nama: '',
         asal: '',
-        nisn: '',
+        nisn: '', 
         nis: '',
-        tahun_masuk: ''
+        tahun_masuk: '' 
     }
 
     handleInput = (e) => {
         this.setState({[e.target.name]: e.target.value});
     }
-    savePost = async (e) => {
+
+    updateSiswa = async (e) => {
         e.preventDefault();
-        const res = await axios.post("/addSiswa", this.state);
+        const id = this.props.id;
+        const res = await axios.patch(`/addSiswa/${id}`, this.state);
         if(res.data.status === 200){
             window.location.href = '/siswa';
         }
     }
 
-  render() {
-    return (
-        <div class="page-wrapper">
+    async componentDidMount(){
+        const id = this.props.id;
+        const res = await axios.get(`/addSiswa/${id}/edit`);
+        this.setState({
+            nama: res.data.siswas.nama,
+            asal: res.data.siswas.asal,
+            nisn: res.data.siswas.nisn,
+            nis: res.data.siswas.nis,
+            tahun_masuk: res.data.siswas.tahun_masuk
+        });
+    }
+
+    render() {
+        return (
+            <div class="page-wrapper">
     <div class="page-body">
         <div class="container">
             <div class="row row-cards">
                 <div class="col">
-                    <form onSubmit={this.savePost} class="card mb-5">
+                    <form onSubmit={this.updateSiswa} class="card mb-5">
                         <div class="card-header">
-                            <h4 class="card-title text-center">Input Data Baru</h4>
+                            <h4 class="card-title text-center">Edit Data Siswa</h4>
                         </div>
                         <div class="card-body">
                             <div class="col-md-12 col-xl-12">
@@ -71,7 +83,7 @@ class SiswaCreate extends Component {
                                 <div class="form-group mb-3">
                                     <div class="col">
                                         <button class="btn btn-primary" type="submit">
-                                            Buat Transkip
+                                            Edit Biodata
                                         </button>
                                     </div>
                                 </div>
@@ -84,8 +96,8 @@ class SiswaCreate extends Component {
         </div>
     </div>
 </div>
-    );
-  }
+        )
+    }
 }
 
-export default SiswaCreate;
+export default EditSiswas;

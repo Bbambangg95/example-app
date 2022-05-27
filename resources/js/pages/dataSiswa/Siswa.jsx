@@ -2,7 +2,7 @@ import React, { Component, useEffect, useState } from "react";
 import {Link} from "react-router-dom";
 import axios from 'axios';
 import { PlusLg } from "react-bootstrap-icons";
-import { render } from "react-dom";
+
 
 class Siswa extends Component {
   state = {
@@ -88,8 +88,9 @@ class Siswa extends Component {
                                 <td>
                                 <div class="d-flex">
                                   <Link to={`/editSiswa/${siswas.id}`}  class="btn me-2">Edit</Link>
+                                  <Link to={""} class="btn me-2">Nilai</Link>
                                   <Link to={"/"}  class="btn me-2">Print</Link>
-                                  <a class="btn" onClick={() => this.deleteSiswa(siswas.id)}>Hapus</a>
+                                  <a class="btn btn-danger" onClick={() => this.deleteSiswa(siswas.id)}>Hapus</a>
                                 </div>
                                 </td>
                               </tr>
