@@ -20,7 +20,7 @@ function Main() {
       <Route index element={<Home />} />
         <Route path="home" element={<Home />}/>
         <Route path="siswa" element={<Siswa />}/>
-        <Route path="siswa/create" element={<SiswaCreate />}/>
+        <Route path="addSiswas" element={<SiswaCreate />}/>
       </Route>
     </Routes>
         </BrowserRouter>

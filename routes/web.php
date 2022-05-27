@@ -18,5 +18,16 @@ use App\Http\Controllers\SiswaController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::view('/{any}', 'welcome')->where('any', '.*');
-
+Route::get('/', function () {
+    return view('welcome');
+});
+Route::get('/home', function () {
+    return view('welcome');
+});
+Route::get('/siswa', function () {
+    return view('welcome');
+});
+Route::get('/addSiswas', function () {
+    return view('welcome');
+});
+Route::resource('/addSiswa', SiswaController::class);

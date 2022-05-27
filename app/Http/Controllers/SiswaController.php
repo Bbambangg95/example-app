@@ -32,12 +32,21 @@ class SiswaController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreSiswaRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        $newSiswa = Siswa::create([
+            'nama' => $request->nama,
+            'asal' => $request->asal,
+            'nisn' => $request->nisn,
+            'nis' => $request->nis,
+            'tahun_masuk' => $request->tahun_masuk,
+        ]);
+        if($newSiswa){
+            return response()->json(["status" => 200]);
+        }
     }
 
     /**
