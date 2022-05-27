@@ -17,7 +17,8 @@ class SiswaController extends Controller
     public function index()
     {
         $siswas = Siswa::all();
-        return response() -> json(['status' => 200, 'siswas' => $siswas]);
+        $jumlah_siswa = Siswa::count();
+        return response() -> json(['status' => 200, 'siswas' => $siswas, 'jumlahSiswa' => $jumlah_siswa]);
     } 
 
     /**
