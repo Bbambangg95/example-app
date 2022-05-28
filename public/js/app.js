@@ -5972,6 +5972,67 @@ var Navbar = /*#__PURE__*/function (_Component) {
                         })]
                       })
                     })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
+                    "class": "nav-item",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
+                      to: "setting",
+                      className: function className(_ref5) {
+                        var isActive = _ref5.isActive;
+                        return isActive ? activeClassName : undefined;
+                      },
+                      style: function style(_ref6) {
+                        var isActive = _ref6.isActive;
+                        return isActive ? activeStyle : undefined;
+                      },
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("a", {
+                        className: "nav-link",
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                          "class": "nav-link-icon d-md-none d-lg-inline-block",
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("svg", {
+                            xmlns: "http://www.w3.org/2000/svg",
+                            "class": "icon",
+                            width: "24",
+                            height: "24",
+                            viewBox: "0 0 24 24",
+                            "stroke-width": "2",
+                            stroke: "currentColor",
+                            fill: "none",
+                            "stroke-linecap": "round",
+                            "stroke-linejoin": "round",
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+                              stroke: "none",
+                              d: "M0 0h24v24H0z",
+                              fill: "none"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("polyline", {
+                              points: "12 3 20 7.5 20 16.5 12 21 4 16.5 4 7.5 12 3"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("line", {
+                              x1: "12",
+                              y1: "12",
+                              x2: "20",
+                              y2: "7.5"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("line", {
+                              x1: "12",
+                              y1: "12",
+                              x2: "12",
+                              y2: "21"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("line", {
+                              x1: "12",
+                              y1: "12",
+                              x2: "4",
+                              y2: "7.5"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("line", {
+                              x1: "16",
+                              y1: "5.25",
+                              x2: "8",
+                              y2: "9.75"
+                            })]
+                          })
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                          "class": "nav-link-title",
+                          children: "Setting"
+                        })]
+                      })
+                    })
                   })]
                 })
               })
