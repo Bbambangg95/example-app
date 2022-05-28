@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useState } from "react";
-import {Link} from "react-router-dom";
+import {Link, Outlet} from "react-router-dom";
 import axios from 'axios';
 import { PlusLg } from "react-bootstrap-icons";
 
@@ -39,13 +39,13 @@ class Siswa extends Component {
                 <div class="page-header d-print-none">
                     <div class="row align-items-center">
                         <div class="col">
-                            <h2 class="page-title">Daftar Siswa</h2>
+                            <h2 class="page-title">Daftar Siswa</h2>    
                             <div class="text-muted mt-1"></div>
                         </div>
                         {/* <!-- Page title actions --> */}
                         <div class="col-auto ms-auto d-print-none">
                             <div class="d-flex">
-                                <Link to={"/addSiswas"} class="btn btn-primary d-inline-block w-9 me-1"><PlusLg className="icon" />Tambah Siswa</Link>
+                                <Link to={"addSiswas"} class="btn btn-primary d-inline-block w-9 me-1"><PlusLg className="icon" />Tambah Siswa</Link>
                             </div>
                           </div>
                           <div class="col-2">
@@ -87,8 +87,8 @@ class Siswa extends Component {
                                 <td class="text-muted">{siswas.tahun_masuk}</td>
                                 <td>
                                 <div class="d-flex">
-                                  <Link to={`/editSiswa/${siswas.id}`}  class="btn me-2">Edit</Link>
-                                  <Link to={""} class="btn me-2">Nilai</Link>
+                                  <Link to={`/siswa/${siswas.id}`}  class="btn me-2">Edit</Link>
+                                  <Link to={"/siswa/editNilai"} class="btn me-2">Nilai</Link>
                                   <Link to={"/"}  class="btn me-2">Print</Link>
                                   <a class="btn btn-danger" onClick={() => this.deleteSiswa(siswas.id)}>Hapus</a>
                                 </div>
@@ -105,7 +105,7 @@ class Siswa extends Component {
                 </div>
                 </form>
                 </div>
-
+                          
       </div>
     );
   }

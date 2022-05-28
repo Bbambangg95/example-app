@@ -27,10 +27,6 @@ Route::get('/home', function () {
 Route::get('/siswa', function () {
     return view('welcome');
 });
-Route::get('/addSiswas', function () {
-    return view('welcome');
-});
-Route::get('/editSiswa/:id', function () {
-    return view('welcome');
-})->name('example');
+
 Route::resource('/addSiswa', SiswaController::class);
+

@@ -8,9 +8,9 @@ class CreateSiswa extends Component {
         nama: '',
         asal: '',
         nisn: '',
-        nis: '',
+        nis: '',   
         tahun_masuk: ''
-    }
+    }      
 
     handleInput = (e) => {
         this.setState({[e.target.name]: e.target.value});

@@ -6,10 +6,14 @@ import {
   Route,
 } from "react-router-dom";
 import Home from './pages/home/Home';
+
+import IndexSiswa from './pages/dataSiswa/IndexSiswa'
 import Siswa from './pages/dataSiswa/Siswa';
 import CreateSiswa from './pages/dataSiswa/CreateSiswa';
-import Dashboard from './layouts/Dashboard';
 import Params from './pages/dataSiswa/Params';
+
+import EditNilai from './pages/dataNilai/EditNilai';
+import Dashboard from './layouts/Dashboard';
 
 
 function Main() {
@@ -20,9 +24,13 @@ function Main() {
       <Route path="/" element={<Dashboard />}>
       <Route index element={<Home />} />
         <Route path="home" element={<Home />}/>
-        <Route path="siswa" element={<Siswa />}/>
-        <Route path="addSiswas" element={<CreateSiswa />}/>
-        <Route path='editSiswa/:id' element={<Params />} />
+        <Route path="siswa" element={<IndexSiswa />}>
+          <Route index element={<Siswa />}/>
+          <Route path="editNilai" element={<EditNilai />} />
+          <Route path=':id' element={<Params />} />
+          <Route path="addSiswas" element={<CreateSiswa />}/>
+        </Route>
+        
       </Route>
     </Routes>
         </BrowserRouter>
