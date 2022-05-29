@@ -13,6 +13,8 @@ import CreateSiswa from './pages/dataSiswa/CreateSiswa';
 import Params from './pages/dataSiswa/Params';
 
 import EditNilai from './pages/dataNilai/EditNilai';
+
+import IndexSet from './pages/setting/IndexSet';
 import Dashboard from './layouts/Dashboard';
 
 
@@ -30,7 +32,7 @@ function Main() {
           <Route path=':id' element={<Params />} />
           <Route path="addSiswas" element={<CreateSiswa />}/>
         </Route>
-        
+        <Route path="setting" element={<IndexSet />}/>
       </Route>
     </Routes>
         </BrowserRouter>

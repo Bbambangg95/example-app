@@ -27,6 +27,8 @@ Route::get('/home', function () {
 Route::get('/siswa', function () {
     return view('welcome');
 });
-
+Route::get('/setting', function () {
+    return view('welcome');
+});
 Route::resource('/addSiswa', SiswaController::class);
 
