@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreSiswaRequest;
 use App\Http\Requests\UpdateSiswaRequest;
 use App\Models\Siswa;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request; 
 
 class SiswaController extends Controller
 {

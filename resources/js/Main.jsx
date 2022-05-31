@@ -19,6 +19,7 @@ import Dashboard from './layouts/Dashboard';
 import IndexSet from './pages/setting/IndexSet';
 import ListMapel from './pages/setting/ListMapel';
 import AddMapel from './pages/setting/AddMapel';
+import ParamMapel from './pages/setting/ParamMapel';
 
 
 function Main() {
@@ -38,6 +39,7 @@ function Main() {
         <Route path="setting" element={<IndexSet />}>
         <Route index element={<ListMapel />} />  
           <Route path="addmapel" element={<AddMapel />}/>
+          <Route path=":id" element={<ParamMapel />} /> 
         </Route>
       </Route>
     </Routes>

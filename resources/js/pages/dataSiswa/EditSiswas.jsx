@@ -16,7 +16,7 @@ class EditSiswas extends React.Component {
 
     updateSiswa = async (e) => {
         e.preventDefault();
-        const id = this.props.id;
+        const id = this.props.id; 
         const res = await axios.patch(`/addSiswa/${id}`, this.state);
         if(res.data.status === 200){
             window.location.href = '/siswa';

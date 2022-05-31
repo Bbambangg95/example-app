@@ -54,9 +54,11 @@ class MapelController extends Controller
      * @param  \App\Models\Mapel  $mapel
      * @return \Illuminate\Http\Response
      */
-    public function show(Mapel $mapel)
+    public function show($id)
     {
-        //
+        $mapels = Mapel::find($id);
+  
+          return $mapels->toJson();
     }
 
     /**
@@ -65,9 +67,10 @@ class MapelController extends Controller
      * @param  \App\Models\Mapel  $mapel
      * @return \Illuminate\Http\Response
      */
-    public function edit(Mapel $mapel)
+    public function edit($id)
     {
-        //
+        $mapels = Mapel::find($id);
+        return response()->json(['status' => 200, 'mapels' => $mapels]);
     }
 
     /**

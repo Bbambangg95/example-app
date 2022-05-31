@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import axios from 'axios';
 import { PlusLg } from "react-bootstrap-icons";
-import ModalEx from '../../layouts/modal/ModalEx';
 class ListMapel extends React.Component {
     state = {
         mapels: [],
@@ -46,12 +45,6 @@ class ListMapel extends React.Component {
                                 <Link to={"addMapel"} class="btn btn-primary d-inline-block w-9 me-1"><PlusLg className="icon" />Tambah Pelajaran</Link>
                             </div>
                           </div>
-                          <div class="col-auto ms-auto d-print-none">
-                            <div class="d-flex">
-                              <button onClick={this.handleOpenModal}>Trigger Modal</button>
-                                <ModalEx />
-                            </div>
-                          </div>
                     </div>
                 </div>
             <div class="page-body">
@@ -74,7 +67,7 @@ class ListMapel extends React.Component {
                                 <td class="text-muted">{mapel.kkm}</td>
                                 <td>
                                 <div class="d-flex">
-                                  <Link to={``}  class="btn me-2">Edit</Link>
+                                  <Link to={`/setting/${mapel.id}`}  class="btn me-2">Edit</Link>
                                   <Link to={"/"}  class="btn me-2">Print</Link>
                                 </div>
                                 </td>
