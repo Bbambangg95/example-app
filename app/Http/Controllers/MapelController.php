@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreMapelRequest;
 use App\Http\Requests\UpdateMapelRequest;
+use Illuminate\Http\Request;
 use App\Models\Mapel;
-
+ 
 class MapelController extends Controller
 {
     /**
@@ -15,8 +16,10 @@ class MapelController extends Controller
      */
     public function index()
     {
-        //
+        $mapels = Mapel::all();
+        return response() -> json(['status' => 200, 'mapels' => $mapels]);
     }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -31,12 +34,18 @@ class MapelController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreMapelRequest  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreMapelRequest $request)
+    public function store(Request $request)
     {
-        //
+        $newMapel = Mapel::create([
+            'nama_mapel' => $request->nama_mapel,
+            'kkm' => $request->kkm,
+        ]);
+        if($newMapel){
+            return response()->json(["status" => 200]);
+        }
     }
 
     /**

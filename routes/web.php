@@ -2,6 +2,7 @@
 
 use App\Models\Siswa;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MapelController;
 use App\Http\Controllers\SiswaController;
 
 /*
@@ -31,4 +32,6 @@ Route::get('/setting', function () {
     return view('welcome');
 });
 Route::resource('/addSiswa', SiswaController::class);
+
+Route::resource('/addMapel', MapelController::class);
 

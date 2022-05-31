@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useState } from "react";
-import {Link, Outlet} from "react-router-dom";
+import {Link} from "react-router-dom";
 import axios from 'axios';
 import { PlusLg } from "react-bootstrap-icons";
 

@@ -14,8 +14,11 @@ import Params from './pages/dataSiswa/Params';
 
 import EditNilai from './pages/dataNilai/EditNilai';
 
-import IndexSet from './pages/setting/IndexSet';
 import Dashboard from './layouts/Dashboard';
+
+import IndexSet from './pages/setting/IndexSet';
+import ListMapel from './pages/setting/ListMapel';
+import AddMapel from './pages/setting/AddMapel';
 
 
 function Main() {
@@ -32,7 +35,10 @@ function Main() {
           <Route path=':id' element={<Params />} />
           <Route path="addSiswas" element={<CreateSiswa />}/>
         </Route>
-        <Route path="setting" element={<IndexSet />}/>
+        <Route path="setting" element={<IndexSet />}>
+        <Route index element={<ListMapel />} />  
+          <Route path="addmapel" element={<AddMapel />}/>
+        </Route>
       </Route>
     </Routes>
         </BrowserRouter>
