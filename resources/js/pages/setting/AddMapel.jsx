@@ -5,6 +5,7 @@ import axios from 'axios';
 class AddMapel extends React.Component {
     state = {
         nama_mapel: '',
+        kelompok: '',
         kkm: '',
     }      
 
@@ -42,6 +43,11 @@ class AddMapel extends React.Component {
                                     <span class="form-label required">KKM</span>
                                     <input class="form-control" type="text" name="kkm" placeholder="Masukkan Asal " 
                                     value={this.state.kkm} onChange={this.handleInput} required />
+                                </div>
+                                <div class="form-group mb-3 ">
+                                    <span class="form-label required">Kelompok Mata Pelajaran</span>
+                                    <input class="form-control" type="text" name="kelompok" placeholder="Masukkan Asal " 
+                                    value={this.state.kelompok} onChange={this.handleInput} required />
                                 </div>
                                 <div class="form-group mb-3">
                                     <div class="col">

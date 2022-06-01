@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         \App\Models\Siswa::factory(10)->create();
         \App\Models\Mapel::factory(10)->create();
+        \App\Models\Nilai::factory(10000)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

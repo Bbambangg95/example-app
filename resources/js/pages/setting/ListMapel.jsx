@@ -57,6 +57,7 @@ class ListMapel extends React.Component {
                               <tr>
                                 <th>Mata Pelajaran</th>
                                 <th>KKM</th>
+                                <th>Kelompok</th>
                                 <th class="w-1 text-center">Opsi</th>
                               </tr>
                             </thead>
@@ -65,6 +66,7 @@ class ListMapel extends React.Component {
                               <tr key={mapel.id}>
                                 <td>{mapel.nama_mapel}</td>
                                 <td class="text-muted">{mapel.kkm}</td>
+                                <td class="text-muted">{mapel.kelompok}</td>
                                 <td>
                                 <div class="d-flex">
                                   <Link to={`/setting/${mapel.id}`}  class="btn me-2">Edit</Link>

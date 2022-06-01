@@ -43,6 +43,7 @@ class MapelController extends Controller
     {
         $newMapel = Mapel::create([
             'nama_mapel' => $request->nama_mapel,
+            'kelompok' => $request->kelompok,
             'kode_mapel' => rand(7000, 1000000),
             'kkm' => $request->kkm,
         ]);
@@ -87,6 +88,7 @@ class MapelController extends Controller
     {
         $mapels = Mapel::find($id);
         $mapels->nama_mapel = $request->nama_mapel;
+        $mapels->kelompok = $request->kelompok;
         $mapels->kkm = $request->kkm;
         if($mapels -> save()){
             return response()->json(["status" => 200]);

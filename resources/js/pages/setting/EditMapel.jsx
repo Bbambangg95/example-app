@@ -4,6 +4,7 @@ import axios from 'axios';
 class EditMapel extends React.Component {
     state ={
         nama_mapel: '',
+        kelompok: '',
         kkm: ''
     }
 
@@ -26,6 +27,7 @@ class EditMapel extends React.Component {
         this.setState({
             nama_mapel: res.data.mapel.nama_mapel,
             kkm: res.data.mapel.kkm,
+            kelompok: res.data.mapel.kelompok,
 
         });
     }
@@ -53,6 +55,11 @@ class EditMapel extends React.Component {
                                     <span class="form-label required">KKM</span>
                                     <input class="form-control" type="text" name="kkm" placeholder="Masukkan Nilai KKM " 
                                     value={this.state.kkm} onChange={this.handleInput} required />
+                                </div>
+                                <div class="form-group mb-3 ">
+                                    <span class="form-label required">Kelompok Mata Pelajaran</span>
+                                    <input class="form-control" type="text" name="kelompok" placeholder="Masukkan Nilai KKM " 
+                                    value={this.state.kelompok} onChange={this.handleInput} required />
                                 </div>
                                 <div class="form-group mb-3">
                                     <div class="col">
