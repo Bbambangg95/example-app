@@ -68,7 +68,7 @@ class ListMapel extends React.Component {
                                 <td>
                                 <div class="d-flex">
                                   <Link to={`/setting/${mapel.id}`}  class="btn me-2">Edit</Link>
-                                  <Link to={"/"}  class="btn me-2">Print</Link>
+                                  <button onClick={() => this.deleteMapel(mapel.id)}  className="btn btn-danger me-2">Hapus</button>
                                 </div>
                                 </td>
                               </tr>

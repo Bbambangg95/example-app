@@ -24,8 +24,9 @@ class EditMapel extends React.Component {
         const id = this.props.id;
         const res = await axios.get(`/addMapel/${id}/edit`);
         this.setState({
-            nama_mapel: res.data.mapels.nama_mapel,
-            kkm: res.data.mapels.kkm,
+            nama_mapel: res.data.mapel.nama_mapel,
+            kkm: res.data.mapel.kkm,
+
         });
     }
     render() {
@@ -62,8 +63,7 @@ class EditMapel extends React.Component {
                                 </div>
                             </div>
                         </div>
-                    </form>
-
+                    </form> 
                 </div>
             </div>
         </div>

@@ -20,6 +20,7 @@ import IndexSet from './pages/setting/IndexSet';
 import ListMapel from './pages/setting/ListMapel';
 import AddMapel from './pages/setting/AddMapel';
 import ParamMapel from './pages/setting/ParamMapel';
+import ParamNilai from './pages/dataNilai/ParamNilai';
 
 
 function Main() {
@@ -32,7 +33,7 @@ function Main() {
         <Route path="home" element={<Home />}/>
         <Route path="siswa" element={<IndexSiswa />}>
           <Route index element={<Siswa />}/>
-          <Route path="editNilai" element={<EditNilai />} />
+          <Route path="editNilai/:id" element={<ParamNilai />} />
           <Route path=':id' element={<Params />} />
           <Route path="addSiswas" element={<CreateSiswa />}/>
         </Route>

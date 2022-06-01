@@ -16,6 +16,10 @@ return new class extends Migration
         Schema::create('nilais', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('nisn');
+            $table->string('kode_mapel');
+            $table->string('semester');
+            $table->string('nilai');
         });
     }
 

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('nama_mapel');
+            $table->string('kode_mapel');
             $table->integer('kkm');
         });
     }

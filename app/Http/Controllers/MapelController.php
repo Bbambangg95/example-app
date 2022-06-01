@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreMapelRequest;
 use App\Http\Requests\UpdateMapelRequest;
-use Illuminate\Http\Request;
 use App\Models\Mapel;
- 
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\Unique;
+
 class MapelController extends Controller
 {
     /**
@@ -17,7 +18,8 @@ class MapelController extends Controller
     public function index()
     {
         $mapels = Mapel::all();
-        return response() -> json(['status' => 200, 'mapels' => $mapels]);
+        $mapelsB = Mapel::where('id', '>', '4')->get();
+        return response() -> json(['status' => 200, 'mapels' => $mapels, 'mapelsB' => $mapelsB]);
     }
     
 
@@ -41,6 +43,7 @@ class MapelController extends Controller
     {
         $newMapel = Mapel::create([
             'nama_mapel' => $request->nama_mapel,
+            'kode_mapel' => rand(7000, 1000000),
             'kkm' => $request->kkm,
         ]);
         if($newMapel){
@@ -56,9 +59,9 @@ class MapelController extends Controller
      */
     public function show($id)
     {
-        $mapels = Mapel::find($id);
+        $mapel = Mapel::find($id);
   
-          return $mapels->toJson();
+          return $mapel->toJson();
     }
 
     /**
@@ -69,8 +72,8 @@ class MapelController extends Controller
      */
     public function edit($id)
     {
-        $mapels = Mapel::find($id);
-        return response()->json(['status' => 200, 'mapels' => $mapels]);
+        $mapel = Mapel::find($id);
+        return response()->json(['status' => 200, 'mapel' => $mapel]);
     }
 
     /**
@@ -80,9 +83,14 @@ class MapelController extends Controller
      * @param  \App\Models\Mapel  $mapel
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateMapelRequest $request, Mapel $mapel)
+    public function update(Request $request, $id)
     {
-        //
+        $mapels = Mapel::find($id);
+        $mapels->nama_mapel = $request->nama_mapel;
+        $mapels->kkm = $request->kkm;
+        if($mapels -> save()){
+            return response()->json(["status" => 200]);
+        }
     }
 
     /**
@@ -91,8 +99,11 @@ class MapelController extends Controller
      * @param  \App\Models\Mapel  $mapel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Mapel $mapel)
+    public function destroy($id)
     {
-        //
+        $mapels = Mapel::find($id);
+        if($mapels->delete()){
+            return response()->json(["status" => 200]);
+        }
     }
 }

@@ -67,7 +67,7 @@ class Siswa extends Component {
                     <div class="row row-cards">
                       <div class="col-12">
                       <div class="card">
-                        <div class="table-responsive">
+                        <div class="table-responsive"> 
                           <table class="table table-vcenter card-table table-striped">
                             <thead>
                               <tr>
@@ -88,7 +88,7 @@ class Siswa extends Component {
                                 <td>
                                 <div class="d-flex">
                                   <Link to={`/siswa/${siswas.id}`}  class="btn me-2">Edit</Link>
-                                  <Link to={"/siswa/editNilai"} class="btn me-2">Nilai</Link>
+                                  <Link to={`/siswa/editNilai/${siswas.id}`} class="btn me-2">Nilai</Link>
                                   <Link to={"/"}  class="btn me-2">Print</Link>
                                   <a class="btn btn-danger" onClick={() => this.deleteSiswa(siswas.id)}>Hapus</a>
                                 </div>

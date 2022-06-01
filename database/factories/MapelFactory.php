@@ -18,6 +18,7 @@ class MapelFactory extends Factory
     {
         return [
             'nama_mapel' => $this->faker->name,
+            'kode_mapel' => $this->faker->unique()->numberBetween(1, 100),
             'kkm' => $this->faker->numberBetween(75, 95),
         ];
     }
