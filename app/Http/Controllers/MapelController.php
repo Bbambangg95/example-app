@@ -17,7 +17,7 @@ class MapelController extends Controller
      */
     public function index()
     {
-        $mapels = Mapel::all();
+        $mapels = Mapel::all(); 
         $mapelsB = Mapel::where('id', '>', '4')->get();
         return response() -> json(['status' => 200, 'mapels' => $mapels, 'mapelsB' => $mapelsB]);
     }

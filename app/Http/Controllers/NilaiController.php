@@ -13,9 +13,10 @@ class NilaiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+        $nilai = Nilai::where('nisn', $id)->get();
+        return response() -> json(['status' => '200', 'nilai' => $nilai]);
     }
 
     /**
@@ -25,7 +26,7 @@ class NilaiController extends Controller
      */
     public function create()
     {
-        //
+        // 
     }
 
     /**
@@ -45,9 +46,10 @@ class NilaiController extends Controller
      * @param  \App\Models\Nilai  $nilai
      * @return \Illuminate\Http\Response
      */
-    public function show(Nilai $nilai)
+    public function show($id)
     {
-        //
+        $nilai = Nilai::where('nisn', $id)->get();
+        return response() -> json(['nilai' => $nilai]);
     }
 
     /**
@@ -56,9 +58,10 @@ class NilaiController extends Controller
      * @param  \App\Models\Nilai  $nilai
      * @return \Illuminate\Http\Response
      */
-    public function edit(Nilai $nilai)
+    public function edit($id)
     {
-        //
+        $nilai = Nilai::find($id);
+        return response()->json(['status' => 200, 'nilai' => $nilai]);
     }
 
     /**

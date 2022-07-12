@@ -35,3 +35,5 @@ Route::resource('/addSiswa', SiswaController::class);
 
 Route::resource('/addMapel', MapelController::class);
 
+Route::resource('/nilai', NilaiController::class);
+

@@ -3,31 +3,22 @@ import React from "react";
 
 class EditNilai extends React.Component {
     state ={
-        mapels: [],
-        mapelsB: []
+        nilais: [],
     }
 
-    handleInput = (e) => {
-        this.setState({[e.target.name]: e.target.value});
-    }
-
-    updateNilai = async (e) => {
-        e.preventDefault();
-        const id = this.props.id;
-        const res = await axios.patch(`/editNilai/${id}`, this.state);
-        if(res.data.status === 200){
-            window.location.href = '/siswa';
-        }
-    }
-
-    async componentDidMount(){
-        const id = this.props.id;
-        const listMapel = await axios.get(`/addMapel`);
+    fetchAllMapels = async () => {
+      const id = this.props.id;
+      const res = await axios.get(`/nilai/${id}`);
+      if (res.status === 200) {
         this.setState({
-            mapels: listMapel.data.mapels,
-            mapelsB: listMapel.data.mapelsB
+          nilais : res.data.nilai,
         });
+      }
     }
+  
+    componentDidMount(){
+      this.fetchAllMapels();
+  }
     render() {
         return (
             <div className="page-body">
@@ -77,7 +68,7 @@ class EditNilai extends React.Component {
                       <tbody>
                         <tr>
                           <td><span class="text-muted">01</span></td>
-                          <td>Pendidikan Agama Islam</td>
+                          <td>PAI</td>
                           <td>87</td>
                           <td>87</td>
                           <td>17</td>
