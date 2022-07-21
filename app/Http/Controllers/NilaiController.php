@@ -20,9 +20,8 @@ class NilaiController extends Controller
     {
         $nilai = DB::table('mapels')
             ->join('nilais', 'mapels.kode_mapel', '=', 'nilais.kode_mapel')
-            // ->join('orders', 'users.id', '=', 'orders.user_id')
-            ->select('mapels.nama_mapel', 'mapels.kode_mapel', 'nilais.nilai','nilais.kode_mapel as kode2', 'nilais.nisn')
-            ->where('nilais.nisn', '=', '145')
+            ->select('mapels.nama_mapel', 'mapels.kode_mapel','mapels.kkm', 'nilais.nilai','nilais.kode_mapel as kode2', 'nilais.nisn')
+            ->where('nilais.nisn', '=', '114')
             ->orderBy('mapels.kode_mapel', 'asc')
             ->get();
         return response() -> json(['status' => 200, 'nilai' => $nilai]);

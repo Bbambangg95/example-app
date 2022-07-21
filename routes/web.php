@@ -2,6 +2,7 @@
 
 use App\Models\Siswa;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Sem1Controller;
 use App\Http\Controllers\MapelController;
 use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\SiswaController;
@@ -36,6 +37,6 @@ Route::resource('/addSiswa', SiswaController::class);
 
 Route::resource('/addMapel', MapelController::class);
 
-Route::resource('/nilai', NilaiController::class);
+Route::resource('/sem1s', Sem1Controller::class);
 
  

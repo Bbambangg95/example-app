@@ -18,7 +18,7 @@ class SiswaFactory extends Factory
     {
         return [
             'nama' => $this->faker->name,
-            'nisn' => $this->faker->unique()->numberBetween(100, 150),
+            'nisn' => $this->faker->unique()->numberBetween(100, 110),
             'nis' => $this->faker->unique()->numberBetween(100000000, 999999999),
             'asal' => $this->faker->city,
             'tahun_masuk' => $this->faker->year,

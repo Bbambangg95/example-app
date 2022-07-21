@@ -1,21 +1,46 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import { useTable } from 'react-table'
+import { useParams } from 'react-router-dom';
  
 
- function EditNilai() {
+ export default function EditNilai() {
+
+  const EditableCell = ({
+    value: initialValue,
+    row: { index },
+    column: { id },
+    updateMyData,
+  }) => {
+    const [value, setValue] = useState(initialValue);
+
+    const onChange = (e) => {
+      setValue(e.target.value);
+    }
+
+    const onBlur = () => {
+      updateMyData(index, id, value);
+    }
+
+    React.useEffect(() => {
+      setValue(initialValue);
+    }, [initialValue]);
+
+    return <input value={value} onChange={onChange} onBlur={onBlur} />;
+  }
+
+  const defaultColumn = {
+    Cell: EditableCell,
+  }
+
   
-   const [mapel, setMapel] = useState([])
-   const [nilai, setNilai] = useState([])
 
+  //baris data
+  let { nisn } = useParams();
+  const [nilai, setNilai] = useState([])
     useEffect(() => {
-      axios.get('/addMapel')
-        .then(res => {
-          setMapel(res.data.mapels)     
-        }
-        )
 
-      axios.get('/nilai')
+      axios.get(`/sem1s/${nisn}`)
         .then(res => {
           setNilai(res.data.nilai)     
         }
@@ -24,13 +49,36 @@ import { useTable } from 'react-table'
 
     const nilai_akhir = [...nilai]
     const data = React.useMemo(() => [...nilai_akhir], [nilai_akhir])
+    const [originalData] = React.useState(data)
+    const [skipPageReset, setSkipPageReset] = React.useState(false)
+
+    const updateMyData = (rowIndex, columnId, value) => {
+      setSkipPageReset(true)
+    setData(old =>
+      old.map((row, index) => {
+        if (index === rowIndex) {
+          return {
+            ...old[rowIndex],
+            [columnId]: value,
+          }
+        }
+        return row
+      })
+    )
+  }
+
+  React.useEffect(() => {
+    setSkipPageReset(false)
+  }, [data])
     
+  const resetData = () => setData(originalData)
  
    const columns = React.useMemo(
      () => [
        {
          Header: 'No',
-         accessor: 'kode_mapel', // accessor is the "key" in the data
+         key: 'index', // accessor is the "key" in the data'
+         render : (text, record, index) => index,
        },
        {
          Header: 'Mata Pelajaran',
@@ -38,7 +86,7 @@ import { useTable } from 'react-table'
        },
        {
          Header: 'KKM',
-         accessor: 'nisn',
+         accessor: 'kkm',
        },
        {
          Header: 'CATATAN SEMESTER',
@@ -48,12 +96,12 @@ import { useTable } from 'react-table'
              columns: [
                {
                  Header: 'Semester 1',
-                 accessor: 'nilai',
+                 accessor: 'sem1',
                },
 
                {
                  Header: 'Semester 2',
-                 accessor: 'kode2',
+                 accessor: 'sem2',
                },
              ],
            },
@@ -62,12 +110,12 @@ import { useTable } from 'react-table'
              columns: [
                {
                  Header: 'Semester 3',
-                 accessor: 'semester3',
+                 accessor: 'sem3',
                },
 
                {
                  Header: 'Semester 4',
-                 accessor: 'semester4',
+                 accessor: 'sem4',
                },
              ],
            },
@@ -76,12 +124,12 @@ import { useTable } from 'react-table'
              columns: [
                {
                  Header: 'Semester 5',
-                 accessor: 'semester5',
+                 accessor: 'sem5',
                },
 
                {
                  Header: 'Semester 6',
-                 accessor: 'semester6',
+                 accessor: 'sem6',
                },
              ],
            },
@@ -89,7 +137,7 @@ import { useTable } from 'react-table'
        },
        {
          Header: 'Rata-rata/Mata Pelajaran',
-         accessor: 'rata_rata',
+         accessor: 'nisn',
        }
      ],
      []
@@ -101,7 +149,13 @@ import { useTable } from 'react-table'
      headerGroups,
      rows,
      prepareRow,
-   } = useTable({ columns, data})
+   } = useTable({ 
+    columns,
+    data,
+    defaultColumn,
+    autoResetPage: !skipPageReset,
+    updateMyData,
+    })
  
    return (
     <div className="page-body">
@@ -158,4 +212,4 @@ import { useTable } from 'react-table'
    )
  }
 
- export default EditNilai;
+ 

@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Nilai>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Sem6>
  */
-class NilaiFactory extends Factory
+class Sem6Factory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,7 @@ class NilaiFactory extends Factory
     public function definition()
     {
         return [
-            'nisn' => $this->faker->numberBetween(100, 150),
+            'nisn' => $this->faker->numberBetween(100, 110),
             'kode_mapel' => $this->faker->numberBetween(1001, 1010),
             'nilai' => $this->faker->numberBetween(1, 100),
         ];

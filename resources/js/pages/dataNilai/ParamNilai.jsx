@@ -5,6 +5,6 @@ import EditNilai from './EditNilai';
 export default function ParamNilai() {
     let { id } = useParams();
     return (
-        <EditNilai id={id} />
+        <EditNilai id = {id} />
     ); 
 }

@@ -5422,8 +5422,8 @@ function Main() {
             index: true,
             element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_pages_dataSiswa_Siswa__WEBPACK_IMPORTED_MODULE_4__["default"], {})
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_16__.Route, {
-            path: "editNilai/:id",
-            element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_pages_dataNilai_ParamNilai__WEBPACK_IMPORTED_MODULE_13__["default"], {})
+            path: "editNilai/:nisn",
+            element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_pages_dataNilai_EditNilai__WEBPACK_IMPORTED_MODULE_7__["default"], {})
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_16__.Route, {
             path: ":id",
             element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_pages_dataSiswa_Params__WEBPACK_IMPORTED_MODULE_6__["default"], {})
@@ -6049,13 +6049,14 @@ var Navbar = /*#__PURE__*/function (_Component) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (/* binding */ EditNilai)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_table__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-table */ "./node_modules/react-table/index.js");
 /* harmony import */ var react_table__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_table__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
@@ -6090,10 +6091,41 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function EditNilai() {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
-      _useState2 = _slicedToArray(_useState, 2),
-      mapel = _useState2[0],
-      setMapel = _useState2[1];
+  var EditableCell = function EditableCell(_ref) {
+    var initialValue = _ref.value,
+        index = _ref.row.index,
+        id = _ref.column.id,
+        updateMyData = _ref.updateMyData;
+
+    var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initialValue),
+        _useState2 = _slicedToArray(_useState, 2),
+        value = _useState2[0],
+        setValue = _useState2[1];
+
+    var onChange = function onChange(e) {
+      setValue(e.target.value);
+    };
+
+    var onBlur = function onBlur() {
+      updateMyData(index, id, value);
+    };
+
+    react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function () {
+      setValue(initialValue);
+    }, [initialValue]);
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+      value: value,
+      onChange: onChange,
+      onBlur: onBlur
+    });
+  };
+
+  var defaultColumn = {
+    Cell: EditableCell
+  }; //baris data
+
+  var _useParams = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_4__.useParams)(),
+      nisn = _useParams.nisn;
 
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState4 = _slicedToArray(_useState3, 2),
@@ -6101,10 +6133,7 @@ function EditNilai() {
       setNilai = _useState4[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    axios__WEBPACK_IMPORTED_MODULE_1___default().get('/addMapel').then(function (res) {
-      setMapel(res.data.mapels);
-    });
-    axios__WEBPACK_IMPORTED_MODULE_1___default().get('/nilai').then(function (res) {
+    axios__WEBPACK_IMPORTED_MODULE_1___default().get("/sem1s/".concat(nisn)).then(function (res) {
       setNilai(res.data.nilai);
     });
   }, []);
@@ -6114,57 +6143,94 @@ function EditNilai() {
   var data = react__WEBPACK_IMPORTED_MODULE_0__.useMemo(function () {
     return _toConsumableArray(nilai_akhir);
   }, [nilai_akhir]);
+
+  var _React$useState = react__WEBPACK_IMPORTED_MODULE_0__.useState(data),
+      _React$useState2 = _slicedToArray(_React$useState, 1),
+      originalData = _React$useState2[0];
+
+  var _React$useState3 = react__WEBPACK_IMPORTED_MODULE_0__.useState(false),
+      _React$useState4 = _slicedToArray(_React$useState3, 2),
+      skipPageReset = _React$useState4[0],
+      setSkipPageReset = _React$useState4[1];
+
+  var updateMyData = function updateMyData(rowIndex, columnId, value) {
+    setSkipPageReset(true);
+    setData(function (old) {
+      return old.map(function (row, index) {
+        if (index === rowIndex) {
+          return _objectSpread(_objectSpread({}, old[rowIndex]), {}, _defineProperty({}, columnId, value));
+        }
+
+        return row;
+      });
+    });
+  };
+
+  react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function () {
+    setSkipPageReset(false);
+  }, [data]);
+
+  var resetData = function resetData() {
+    return setData(originalData);
+  };
+
   var columns = react__WEBPACK_IMPORTED_MODULE_0__.useMemo(function () {
     return [{
       Header: 'No',
-      accessor: 'kode_mapel' // accessor is the "key" in the data
-
+      key: 'index',
+      // accessor is the "key" in the data'
+      render: function render(text, record, index) {
+        return index;
+      }
     }, {
       Header: 'Mata Pelajaran',
       accessor: 'nama_mapel' // accessor is the "key" in the data
 
     }, {
       Header: 'KKM',
-      accessor: 'nisn'
+      accessor: 'kkm'
     }, {
       Header: 'CATATAN SEMESTER',
       columns: [{
         Header: 'KELAS X',
         columns: [{
           Header: 'Semester 1',
-          accessor: 'nilai'
+          accessor: 'sem1'
         }, {
           Header: 'Semester 2',
-          accessor: 'kode2'
+          accessor: 'sem2'
         }]
       }, {
         Header: 'KELAS XI',
         columns: [{
           Header: 'Semester 3',
-          accessor: 'semester3'
+          accessor: 'sem3'
         }, {
           Header: 'Semester 4',
-          accessor: 'semester4'
+          accessor: 'sem4'
         }]
       }, {
         Header: 'KELAS XII',
         columns: [{
           Header: 'Semester 5',
-          accessor: 'semester5'
+          accessor: 'sem5'
         }, {
           Header: 'Semester 6',
-          accessor: 'semester6'
+          accessor: 'sem6'
         }]
       }]
     }, {
       Header: 'Rata-rata/Mata Pelajaran',
-      accessor: 'rata_rata'
+      accessor: 'nisn'
     }];
   }, []);
 
   var _useTable = (0,react_table__WEBPACK_IMPORTED_MODULE_2__.useTable)({
     columns: columns,
-    data: data
+    data: data,
+    defaultColumn: defaultColumn,
+    autoResetPage: !skipPageReset,
+    updateMyData: updateMyData
   }),
       getTableProps = _useTable.getTableProps,
       getTableBodyProps = _useTable.getTableBodyProps,
@@ -6227,8 +6293,6 @@ function EditNilai() {
     })
   });
 }
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EditNilai);
 
 /***/ }),
 
@@ -7149,7 +7213,7 @@ var Siswa = /*#__PURE__*/function (_Component) {
                                     "class": "btn me-2",
                                     children: "Edit"
                                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
-                                    to: "/siswa/editNilai/".concat(siswas.id),
+                                    to: "/siswa/editNilai/".concat(siswas.nisn),
                                     "class": "btn me-2",
                                     children: "Nilai"
                                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
@@ -7637,10 +7701,11 @@ var EditMapel = /*#__PURE__*/function (_React$Component) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 id = this.props.id;
-                _context2.next = 3;
+                console.log(id);
+                _context2.next = 4;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/addMapel/".concat(id, "/edit"));
 
-              case 3:
+              case 4:
                 res = _context2.sent;
                 this.setState({
                   nama_mapel: res.data.mapel.nama_mapel,
@@ -7648,7 +7713,7 @@ var EditMapel = /*#__PURE__*/function (_React$Component) {
                   kelompok: res.data.mapel.kelompok
                 });
 
-              case 5:
+              case 6:
               case "end":
                 return _context2.stop();
             }

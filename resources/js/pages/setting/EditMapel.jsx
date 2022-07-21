@@ -23,6 +23,7 @@ class EditMapel extends React.Component {
 
     async componentDidMount(){
         const id = this.props.id;
+        console.log(id)
         const res = await axios.get(`/addMapel/${id}/edit`);
         this.setState({
             nama_mapel: res.data.mapel.nama_mapel,

@@ -33,7 +33,7 @@ function Main() {
         <Route path="home" element={<Home />}/>
         <Route path="siswa" element={<IndexSiswa />}>
           <Route index element={<Siswa />}/>
-          <Route path="editNilai/:id" element={<ParamNilai />} />
+          <Route path="editNilai/:nisn" element={<EditNilai />} />
           <Route path=':id' element={<Params />} />
           <Route path="addSiswas" element={<CreateSiswa />}/>
         </Route>
