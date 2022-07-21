@@ -3,6 +3,7 @@
 use App\Models\Siswa;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MapelController;
+use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\SiswaController;
 
 /*
@@ -37,3 +38,4 @@ Route::resource('/addMapel', MapelController::class);
 
 Route::resource('/nilai', NilaiController::class);
 
+ 

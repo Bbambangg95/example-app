@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreNilaiRequest;
 use App\Http\Requests\UpdateNilaiRequest;
 use App\Models\Nilai;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\Unique;
+use Illuminate\Support\Facades\DB;
 
 class NilaiController extends Controller
 {
@@ -13,10 +16,16 @@ class NilaiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
     {
-        $nilai = Nilai::where('nisn', $id)->get();
-        return response() -> json(['status' => '200', 'nilai' => $nilai]);
+        $nilai = DB::table('mapels')
+            ->join('nilais', 'mapels.kode_mapel', '=', 'nilais.kode_mapel')
+            // ->join('orders', 'users.id', '=', 'orders.user_id')
+            ->select('mapels.nama_mapel', 'mapels.kode_mapel', 'nilais.nilai','nilais.kode_mapel as kode2', 'nilais.nisn')
+            ->where('nilais.nisn', '=', '145')
+            ->orderBy('mapels.kode_mapel', 'asc')
+            ->get();
+        return response() -> json(['status' => 200, 'nilai' => $nilai]);
     }
 
     /**

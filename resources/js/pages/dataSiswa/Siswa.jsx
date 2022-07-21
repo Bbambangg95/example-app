@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import axios from 'axios';
 import { PlusLg } from "react-bootstrap-icons";
 
-
+ 
 class Siswa extends Component {
   state = {
     siswas: [],

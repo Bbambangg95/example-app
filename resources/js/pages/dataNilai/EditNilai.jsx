@@ -1,135 +1,161 @@
-import axios from "axios";
-import React from "react";
+import React, {useState, useEffect} from 'react'
+import axios from 'axios'
+import { useTable } from 'react-table'
+ 
 
-class EditNilai extends React.Component {
-    state ={
-        nilais: [],
-    }
-
-    fetchAllMapels = async () => {
-      const id = this.props.id;
-      const res = await axios.get(`/nilai/${id}`);
-      if (res.status === 200) {
-        this.setState({
-          nilais : res.data.nilai,
-        });
-      }
-    }
+ function EditNilai() {
   
-    componentDidMount(){
-      this.fetchAllMapels();
-  }
-    render() {
-        return (
-            <div className="page-body">
-                <div class="container">
-                <div class="card card-md">
-                  <div class="card-body">
-                    <div class="row align-items-center">
-                      <div class="col-10">
-                        <h3 class="h1">Data Transkip Nilai</h3>
-                        <div class="markdown text-muted">
-                          All icons come from the Tabler Icons set and are MIT-licensed. Visit
-                          <a href="https://tabler-icons.io" target="_blank" rel="noopener">tabler-icons.io</a>,
-                          download any of the 1978 icons in SVG, PNG or&nbsp;React and use them in your favourite design tools.
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <table class="table card-table table-vcenter text-center text-nowrap datatable mt-2">
-                      <thead>
-                        <tr>
-                          <th class="w-1" rowSpan="3">No.</th>
-                          <th rowSpan="3">Mata Pelajaran</th>
-                          <th rowSpan="3">KKM</th>
-                          <th colSpan="6" class="w-">CATATAN SEMESTER</th>
-                          <th rowSpan="3">Rata-rata/Mata Pelajaran</th>
-                        </tr>
-                        <tr>
-                            <th colSpan={2}>KELAS X</th>
-                            <th colSpan={2}>KELAS XI</th>
-                            <th colSpan={2}>KELAS XII</th>
-                        </tr>
-                        <tr>
-                            <th>Semester 1</th>
-                            <th>Semester 2</th>
-                            <th>Semester 3</th>
-                            <th>Semester 4</th>
-                            <th>Semester 5</th>
-                            <th>Semester 6</th>
-                        </tr>
-                      </thead>
-                      <thead>
-                        <tr>
-                          <td className="text-start fw-bold" colSpan={12}>Kelompok A</td>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td><span class="text-muted">01</span></td>
-                          <td>PAI</td>
-                          <td>87</td>
-                          <td>87</td>
-                          <td>17</td>
-                          <td>99</td>
-                          <td>87</td>
-                          <td>88</td>
-                          <td>88</td>
-                        </tr>
-                      </tbody>
-                      <thead className="mt-2">
-                        <tr>
-                          <td className="text-start fw-bold" colSpan={12}>Kelompok B</td>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td><span class="text-muted">01</span></td>
-                          <td>Pendidikan Agama Islam</td>
-                          <td>87</td>
-                          <td>87</td>
-                          <td>17</td>
-                          <td>99</td>
-                          <td>87</td>
-                          <td>88</td>
-                          <td>88</td>
-                        </tr>
-                        <tr>
-                          <td><span class="text-muted">01</span></td>
-                          <td>Pendidikan Agama Islam</td>
-                          <td>87</td>
-                          <td>87</td>
-                          <td>17</td>
-                          <td>99</td>
-                          <td>87</td>
-                          <td>88</td>
-                          <td>88</td>
-                        </tr>
-                      </tbody>
-                      <thead>
-                        <tr>
-                          <td className="text-start fw-bold" colSpan={12}>Kelompok C</td>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td><span class="text-muted">01</span></td>
-                          <td>Pendidikan Agama Islam</td>
-                          <td>87</td>
-                          <td>87</td>
-                          <td>17</td>
-                          <td>99</td>
-                          <td>87</td>
-                          <td>88</td>
-                          <td>88</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                </div>
-            </div>
-        );
-    }
-}
+   const [mapel, setMapel] = useState([])
+   const [nilai, setNilai] = useState([])
 
-export default EditNilai;
+    useEffect(() => {
+      axios.get('/addMapel')
+        .then(res => {
+          setMapel(res.data.mapels)     
+        }
+        )
+
+      axios.get('/nilai')
+        .then(res => {
+          setNilai(res.data.nilai)     
+        }
+        )
+    }, [])
+
+    const nilai_akhir = [...nilai]
+    const data = React.useMemo(() => [...nilai_akhir], [nilai_akhir])
+    
+ 
+   const columns = React.useMemo(
+     () => [
+       {
+         Header: 'No',
+         accessor: 'kode_mapel', // accessor is the "key" in the data
+       },
+       {
+         Header: 'Mata Pelajaran',
+         accessor: 'nama_mapel', // accessor is the "key" in the data
+       },
+       {
+         Header: 'KKM',
+         accessor: 'nisn',
+       },
+       {
+         Header: 'CATATAN SEMESTER',
+         columns: [
+           {
+             Header: 'KELAS X',
+             columns: [
+               {
+                 Header: 'Semester 1',
+                 accessor: 'nilai',
+               },
+
+               {
+                 Header: 'Semester 2',
+                 accessor: 'kode2',
+               },
+             ],
+           },
+           {
+             Header: 'KELAS XI',
+             columns: [
+               {
+                 Header: 'Semester 3',
+                 accessor: 'semester3',
+               },
+
+               {
+                 Header: 'Semester 4',
+                 accessor: 'semester4',
+               },
+             ],
+           },
+           {
+             Header: 'KELAS XII',
+             columns: [
+               {
+                 Header: 'Semester 5',
+                 accessor: 'semester5',
+               },
+
+               {
+                 Header: 'Semester 6',
+                 accessor: 'semester6',
+               },
+             ],
+           },
+         ]
+       },
+       {
+         Header: 'Rata-rata/Mata Pelajaran',
+         accessor: 'rata_rata',
+       }
+     ],
+     []
+   )
+ 
+   const {
+     getTableProps,
+     getTableBodyProps,
+     headerGroups,
+     rows,
+     prepareRow,
+   } = useTable({ columns, data})
+ 
+   return (
+    <div className="page-body">
+      <div class="container">
+      <div class="card card-md">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col-10">
+              <h3 class="h1">Data Transkip Nilai</h3>
+              <div class="markdown text-muted">
+                All icons come from the Tabler Icons set and are MIT-licensed. Visit
+                <a href="https://tabler-icons.io" target="_blank" rel="noopener">tabler-icons.io</a>,
+                download any of the 1978 icons in SVG, PNG or&nbsp;React and use them in your favourite design tools.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+     <table {...getTableProps()} class="table table-striped card-table table-vcenter text-center text-nowrap datatable mt-2">
+       <thead>
+         {headerGroups.map(headerGroup => (
+           <tr {...headerGroup.getHeaderGroupProps()}>
+             {headerGroup.headers.map(column => (
+               <th
+                 {...column.getHeaderProps()}
+               >
+                 {column.render('Header')}
+               </th>
+             ))}
+           </tr>
+         ))}
+       </thead>
+       <tbody {...getTableBodyProps()}>
+         {rows.map(row => {
+           prepareRow(row)
+           return (
+             <tr {...row.getRowProps()}>
+               {row.cells.map(cell => {
+                 return (
+                   <td
+                     {...cell.getCellProps()}
+                   >
+                     {cell.render('Cell')}
+                   </td>
+                 )
+               })}
+             </tr>
+           )
+         })}
+       </tbody>
+     </table>
+     </div>
+     </div>
+   )
+ }
+
+ export default EditNilai;
